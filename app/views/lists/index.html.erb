@@ -1,0 +1,30 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <% @companies.each do |company| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-header text-muted">
+            <!-- Put some info here if you want -->
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to company.company_name, "/lists/#{company.id}", class: 'text-decoration-none text-dark' %>
+            </h5>
+          </div>
+          <div class="card-footer bg-transparent">
+            <%= link_to 'Delete', "/lists/#{company.id}", method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="mt-5">
+  <%= paginate @companies, class: 'pagination justify-content-center' %>
+</div>

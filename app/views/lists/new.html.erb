@@ -1,0 +1,56 @@
+
+<% if @company.errors.any? %>
+  <%= @company.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @company.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @company.company_name %> - 編集</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-light">
+        <h1 class="h3">
+          <i class="fas fa-edit"></i> <!-- Add icon -->
+          <%= @company.company_name %> - 編集
+        </h1>
+      </div>
+      <div class="card-body">
+        <%= form_with model: @company,url:"/lists/#{@company.id}", method: :patch do |f| %>
+          <div class="form-group">
+            <%= f.label :company_code, "企業コード" %>
+            <%= f.text_field :company_code, class: "form-control" %>
+            <% if @company.errors.include?(:company_code) %>
+              <small class="form-text text-danger"><%= @company.errors[:company_code].join(", ") %></small>
+            <% end %>
+          </div>
+          <!-- Add other form fields similarly -->
+          <!-- ... -->
+
+          <div class="form-group">
+            <%= f.submit "更新", class: "btn btn-primary mr-2" %>
+            <%= link_to "戻る", lists_path, class: 'btn btn-secondary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
