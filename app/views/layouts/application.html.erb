@@ -34,7 +34,7 @@
       </div>
        <% if user_signed_in? %>
      <%= form_with url: search_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0' do |f| %>
-  <%= f.select :search_type, options_for_select(['両方一致', '片方一致']), class: 'form-control mr-sm-2' %>
+  <%= f.select :search_type, options_for_select(['AND', 'OR']), class: 'form-control mr-sm-2' %>
 
   <%= f.select :field1, options_for_select([
     ['企業コード', 'company_code'],

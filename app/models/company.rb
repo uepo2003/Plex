@@ -1,13 +1,20 @@
 class Company < ApplicationRecord
- def self.search(search_type, field1, value1, field2, value2)
-  
+  def self.search(search_type, field1, value1, field2, value2)
+    if value1.nil? && value2.nil?
+      all
+    elsif value1.nil?
+      where("#{field2} = ?", value2)
+    elsif value2.nil?
+      where("#{field1} = ?", value1)
+    else
       if search_type == 'AND'
         where("#{field1} = ? AND #{field2} = ?", value1, value2)
       else
         where("#{field1} = ? OR #{field2} = ?", value1, value2)
       end
-    
- end
+    end
+  end
+
 
   validates :company_code, presence: true 
   validates :listing_status, presence: true 
