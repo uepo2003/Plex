@@ -11,20 +11,27 @@ class ListsController < ApplicationController
   def create
     @company = Company.new(company_params)
     @company.user_id = current_user.id
-    if @company.save
+    if policy(@company).create?
       redirect_to "/lists"
     else
-      render :new
+      flash[:notice] = "You do not have permission to create this page."
+      redirect_to new_list_path
     end
     
   end 
 
   def new
-     @company = Company.new
+    @company = Company.new
   end
   
   def edit
     @company = Company.find(params[:id])
+    if policy(@company).edit?
+    else
+    flash[:notice] = "You do not have permission to edit this company."
+    redirect_to lists_path
+    end
+      
   end
   
   def update
@@ -45,6 +52,7 @@ class ListsController < ApplicationController
     redirect_to lists_path
   end
   end
+  
   private
   def company_params
     params.require(:company).permit(

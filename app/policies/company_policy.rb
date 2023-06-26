@@ -9,6 +9,15 @@ class CompanyPolicy < ApplicationPolicy
 
  
   end
+  def create?
+  
+    user.admin?
+  end
+   def new?
+    user.admin?
+   end
+
+
   def destroy?
      user.admin?
   end
